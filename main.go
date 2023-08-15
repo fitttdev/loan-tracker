@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"loan-tracker/core"
+)
 
 func main() {
-    fmt.Println("Welcome to Loan Tracker Application!")
+	core.FetchRandomQuote()
 }
