@@ -1,41 +1,24 @@
 package main
 
 import (
-	"net/http"
-	"github.com/gin-gonic/gin"
+    "github.com/gin-gonic/gin"
+    "loan-tracker/internal/api/routes"
 )
 
 var db = make(map[string]string)
 
 func setupRouter() *gin.Engine {
-	// Disable Console Color
-	// gin.DisableConsoleColor()
-	r := gin.Default()
+    r := gin.Default()
+    
+    // Load HTML templates
+    
+    routers.SetupHomeRouter(r) // Set up home-related routes
+    routers.SetupLoanRouter(r) // Set up loan-related routes
 
-	// Home Page
-	r.LoadHTMLGlob("templates/*")
-	r.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.tmpl", gin.H{
-			"title": "Main website",
-		})
-	})
-	
-	// Ping test
-	r.GET("/ping", func(c *gin.Context) {
-		c.String(http.StatusOK, "pong")
-	})
-
-    // Track Loan
-
-	r.GET("/track", func(c *gin.Context) {
-		c.String(http.StatusOK, "Your loan will be fully paid by the end of this year!")
-	})
-
-	return r
+    return r
 }
 
 func main() {
-	r := setupRouter()
-	// Listen and Server in 0.0.0.0:8080
-	r.Run(":8080")
+    r := setupRouter()
+    r.Run(":8080")
 }
